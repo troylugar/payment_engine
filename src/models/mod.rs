@@ -1,3 +1,4 @@
+use rust_decimal::Decimal;
 use serde::Deserialize;
 
 #[derive(Clone, Copy, Debug, Deserialize)]
@@ -10,7 +11,7 @@ pub enum TransactionType {
     Chargeback,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Clone, Copy, Debug, Deserialize)]
 pub struct TxRow {
     #[serde(rename(deserialize = "type"))]
     pub tx_type: TransactionType,
@@ -18,17 +19,17 @@ pub struct TxRow {
     pub client_id: u16,
     #[serde(rename(deserialize = "tx"))]
     pub tx_id: u32,
-    pub amount: Option<f64>,
+    pub amount: Option<Decimal>,
 }
 
 #[derive(Clone, Copy, Debug)]
 pub struct AccountData {
-    pub available: f64,
-    pub held: f64,
+    pub available: Decimal,
+    pub held: Decimal,
 }
 
 #[derive(Clone, Copy, Debug)]
 pub struct Transaction {
-    pub amount: f64,
+    pub amount: Decimal,
     pub disputed: bool,
 }

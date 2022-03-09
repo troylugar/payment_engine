@@ -1,11 +1,13 @@
 use std::collections::{hash_map::Iter, HashMap, HashSet};
 
+use rust_decimal::Decimal;
+
 use crate::models::{AccountData, Transaction};
 
 #[derive(Debug)]
 pub struct TransactionStore {
     // maps tx_id to tx_amount
-    transactions: HashMap<u32, f64>,
+    transactions: HashMap<u32, Decimal>,
     // holds ids of disputed txs
     disputed_transactions: HashSet<u32>,
 }
@@ -28,7 +30,7 @@ impl TransactionStore {
         }
     }
 
-    pub fn insert_tx(&mut self, id: u32, amount: f64) -> Result<(), DataError> {
+    pub fn insert_tx(&mut self, id: u32, amount: Decimal) -> Result<(), DataError> {
         match self.transactions.contains_key(&id) {
             true => Err(DataError::AlreadyExists),
             false => {
