@@ -22,7 +22,7 @@ fn main() {
                 message
             ))
         })
-        .level(log::LevelFilter::Info)
+        .level(log::LevelFilter::Debug)
         .chain(fern::log_file("output.log").unwrap())
         .apply()
         .unwrap();
