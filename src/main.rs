@@ -62,9 +62,9 @@ fn main() {
         writer
             .write_record(&[
                 id.to_string(),
-                format!("{:.4}", (data.available + data.held)),
-                format!("{:.4}", data.available),
-                format!("{:.4}", data.held),
+                (data.available + data.held).round_dp(4).to_string(),
+                data.available.round_dp(4).to_string(),
+                data.held.round_dp(4).to_string(),
                 engine.is_account_locked(*id).to_string(),
             ])
             .expect("failed to write to file");
